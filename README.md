@@ -8,20 +8,36 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### ng new deal-lib --create-application=false
 
-## Build
+### ng g library deal --prefix=dl
+### ng generate application lib-demo
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### ng build deal-lib
 
-## Running unit tests
+### ng serve lib-demo
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### ng g c deal-details --project=deal-lib
 
-## Running end-to-end tests
+## Usage
+```javascript
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+import { environment } from '../environments/environment';
 
-## Further help
+import { DealModule } from 'deal';
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    DealModule.forRoot(environment.envCode),//additional data if any
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```

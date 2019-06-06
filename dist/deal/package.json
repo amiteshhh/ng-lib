@@ -1,0 +1,21 @@
+{
+  "name": "deal",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^7.2.0",
+    "@angular/core": "^7.2.0"
+  },
+  "main": "bundles/deal.umd.js",
+  "module": "fesm5/deal.js",
+  "es2015": "fesm2015/deal.js",
+  "esm5": "esm5/deal.js",
+  "esm2015": "esm2015/deal.js",
+  "fesm5": "fesm5/deal.js",
+  "fesm2015": "fesm2015/deal.js",
+  "typings": "deal.d.ts",
+  "metadata": "deal.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}

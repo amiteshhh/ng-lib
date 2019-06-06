@@ -1,19 +1,22 @@
 {
-  "name": "deal",
-  "version": "0.0.1",
+  "name": "nglibdeal",
+  "version": "0.0.3",
   "peerDependencies": {
     "@angular/common": "^7.2.0",
-    "@angular/core": "^7.2.0"
+    "@angular/core": "^7.2.0",
+    "@angular/material": "^7.3.7",
+    "@angular/animations": "~7.2.0",
+    "@angular/cdk": "~7.3.7"
   },
-  "main": "bundles/deal.umd.js",
-  "module": "fesm5/deal.js",
-  "es2015": "fesm2015/deal.js",
-  "esm5": "esm5/deal.js",
-  "esm2015": "esm2015/deal.js",
-  "fesm5": "fesm5/deal.js",
-  "fesm2015": "fesm2015/deal.js",
-  "typings": "deal.d.ts",
-  "metadata": "deal.metadata.json",
+  "main": "bundles/nglibdeal.umd.js",
+  "module": "fesm5/nglibdeal.js",
+  "es2015": "fesm2015/nglibdeal.js",
+  "esm5": "esm5/nglibdeal.js",
+  "esm2015": "esm2015/nglibdeal.js",
+  "fesm5": "fesm5/nglibdeal.js",
+  "fesm2015": "fesm2015/nglibdeal.js",
+  "typings": "nglibdeal.d.ts",
+  "metadata": "nglibdeal.metadata.json",
   "sideEffects": false,
   "dependencies": {
     "tslib": "^1.9.0"

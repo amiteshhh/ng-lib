@@ -18,6 +18,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 ### ng serve lib-demo
 
 ### ng g c deal-details --project=deal-lib
+`Add all lib dependency(like angular material) as peer dependency in lib project and install these dependency along with lib as main dependency in the application which uses it.`
 
 ## Usage
 ```javascript

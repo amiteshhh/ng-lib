@@ -23,7 +23,7 @@ export class DealComponent implements OnInit {
     console.log('APP_CONFIG', APP_CONFIG)
   }
   openSnackBar() {
-    this._snackBar.open('Hey its just a message from material');
+    this._snackBar.open('Hey its just a message from material', 'OK');
   }
 
   ngOnInit() {

@@ -1,0 +1,11 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+export { DealService, DealComponent, DealModule } from './public-api';
+export { DealDetailsComponent as ɵa } from './lib/deal-details/deal-details.component';
+export { MyMaterialModule as ɵb } from './lib/my-material.module';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmdsaWJkZWFsLmpzIiwic291cmNlUm9vdCI6Im5nOi8vbmdsaWJkZWFsLyIsInNvdXJjZXMiOlsibmdsaWJkZWFsLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFJQSx1REFBYyxjQUFjLENBQUM7QUFFN0IsT0FBTyxFQUFDLG9CQUFvQixJQUFJLEVBQUUsRUFBQyxNQUFNLDJDQUEyQyxDQUFDO0FBQ3JGLE9BQU8sRUFBQyxnQkFBZ0IsSUFBSSxFQUFFLEVBQUMsTUFBTSwwQkFBMEIsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogR2VuZXJhdGVkIGJ1bmRsZSBpbmRleC4gRG8gbm90IGVkaXQuXG4gKi9cblxuZXhwb3J0ICogZnJvbSAnLi9wdWJsaWMtYXBpJztcblxuZXhwb3J0IHtEZWFsRGV0YWlsc0NvbXBvbmVudCBhcyDJtWF9IGZyb20gJy4vbGliL2RlYWwtZGV0YWlscy9kZWFsLWRldGFpbHMuY29tcG9uZW50JztcbmV4cG9ydCB7TXlNYXRlcmlhbE1vZHVsZSBhcyDJtWJ9IGZyb20gJy4vbGliL215LW1hdGVyaWFsLm1vZHVsZSc7Il19

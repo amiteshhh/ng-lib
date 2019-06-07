@@ -1,11 +1,25 @@
-<h2>I am dl-deal-details component </h2>
-<div>Environment: {{envCode}}</div>
-<div>Base Url: {{BASE_URL}}</div>
-<p>
-  deal details works!
-</p>
-<button mat-button [matMenuTriggerFor]="menu">Menu</button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
-</mat-menu>
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar
+         class="example-header-image"></div>
+    <mat-card-title>Intra Product Vehicle</mat-card-title>
+    <mat-card-subtitle>CF1234</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit doloremque non fuga sint consectetur soluta
+      explicabo! Eaque quo ipsum ex corrupti nam, repellat illum odit vero, laboriosam laborum corporis excepturi!
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button
+            color="primary">Save</button>
+    <button mat-button>Cancel</button>
+    <button mat-button
+            [matMenuTriggerFor]="menu">Show more</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Environment: {{envCode}}</button>
+      <button mat-menu-item>Base Url: {{BASE_URL}}</button>
+    </mat-menu>
+  </mat-card-actions>
+</mat-card>

@@ -1,5 +1,10 @@
-export declare var APP_CONFIG: appConfig;
-export declare var environment: {
+export interface envConfigI {
+    /** 'DEV'|'PROD' etc */
+    envCode?: string;
+    BASE_URL?: string;
+}
+export declare var environment: envConfigI;
+export declare var environments: {
     DEV: {
         envCode: string;
         BASE_URL: string;
@@ -9,8 +14,3 @@ export declare var environment: {
         BASE_URL: string;
     };
 };
-interface appConfig {
-    envCode?: 'DEV' | 'PROD';
-    BASE_URL?: string;
-}
-export {};

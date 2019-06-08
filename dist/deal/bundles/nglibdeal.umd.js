@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser/animations'), require('@angular/material/button'), require('@angular/material/menu'), require('@angular/material/snack-bar'), require('@angular/material/card'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('nglibdeal', ['exports', '@angular/platform-browser/animations', '@angular/material/button', '@angular/material/menu', '@angular/material/snack-bar', '@angular/material/card', '@angular/core'], factory) :
-    (factory((global.nglibdeal = {}),global.ng.platformBrowser.animations,global.ng.material.button,global.ng.material.menu,global.ng.material['snack-bar'],global.ng.material.card,global.ng.core));
-}(this, (function (exports,animations,button,menu,snackBar,card,i0) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/material/button'), require('@angular/material/menu'), require('@angular/material/snack-bar'), require('@angular/material/card'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('nglibdeal', ['exports', '@angular/material/button', '@angular/material/menu', '@angular/material/snack-bar', '@angular/material/card', '@angular/core'], factory) :
+    (factory((global.nglibdeal = {}),global.ng.material.button,global.ng.material.menu,global.ng.material['snack-bar'],global.ng.material.card,global.ng.core));
+}(this, (function (exports,button,menu,snackBar,card,i0) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
@@ -27,10 +27,10 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var APP_CONFIG = {};
-    //will be updated to environment val from below  
+    var environment = {};
+    //will be updated to environment val from below 
     /** @type {?} */
-    var environment = {
+    var environments = {
         DEV: {
             envCode: 'DEV',
             BASE_URL: 'http://deal.dev.com'
@@ -46,13 +46,11 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var DealComponent = /** @class */ (function () {
+        // envCode = environment.envCode;
+        // BASE_URL = environment.BASE_URL;
         function DealComponent(_snackBar) {
             this._snackBar = _snackBar;
-            //direct assignment APP_CONFIG=APP_CONFIG throws error 'cannot be named'
-            this.envCode = APP_CONFIG.envCode; //create a copy just for illustration
-            //create a copy just for illustration
-            this.BASE_URL = APP_CONFIG.BASE_URL; //create a copy just for illustration
-            console.log('APP_CONFIG', APP_CONFIG);
+            this.environment = environment;
         }
         /**
          * @return {?}
@@ -74,7 +72,7 @@
         DealComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'dl-deal',
-                        template: "\n    <h2>I am dl-deal component </h2>\n    <div>Environment: {{envCode}}</div>\n    <button mat-button (click)=\"openSnackBar()\">Click me!</button>\n    <div>Base Url: {{BASE_URL}}</div>\n    <p>\n      deal works!\n    </p>\n  ",
+                        template: "\n    <h2>I am dl-deal new component </h2>\n    <div>Environment: {{environment.envCode}}</div>\n    <button mat-button (click)=\"openSnackBar()\">Click me!</button>\n    <div>Base Url: {{environment.BASE_URL}}</div>\n    <p>\n      deal works each time!\n    </p>\n  ",
                         styles: [':host{border: 1px solid gray;display:block}']
                     }] }
         ];
@@ -112,9 +110,9 @@
     var DealDetailsComponent = /** @class */ (function () {
         function DealDetailsComponent() {
             //direct assignment APP_CONFIG=APP_CONFIG throws error 'cannot be named'
-            this.envCode = APP_CONFIG.envCode; //create a copy just for illustration
+            this.envCode = environment.envCode; //create a copy just for illustration
             //create a copy just for illustration
-            this.BASE_URL = APP_CONFIG.BASE_URL; //create a copy just for illustration
+            this.BASE_URL = environment.BASE_URL; //create a copy just for illustration
         }
         /**
          * @return {?}
@@ -145,27 +143,43 @@
     var DealModule = /** @class */ (function () {
         function DealModule() {
         }
+        /**Intializes environment specific api end points and other configurable items.
+         * @param envCode Typically DEV, PROD etc. Refer environment.ts of Deal library project.
+         * @param defaults Optional object to be passed to merge in the env config.
+         * @example
+         * 1. DealModule.configEnv('DEV')
+         * 2. DealModule.configEnv('DEV', {COMMON_API: 'https://someurl.com'})
+         */
         /**
-         * @param {?} envCode
-         * @param {?=} defaults
+         * Intializes environment specific api end points and other configurable items.
+         * \@example
+         * 1. DealModule.configEnv('DEV')
+         * 2. DealModule.configEnv('DEV', {COMMON_API: 'https://someurl.com'})
+         * @param {?} envCode Typically DEV, PROD etc. Refer environment.ts of Deal library project.
+         * @param {?=} defaults Optional object to be passed to merge in the env config.
          * @return {?}
          */
-        DealModule.forRoot = /**
-         * @param {?} envCode
-         * @param {?=} defaults
+        DealModule.configEnv = /**
+         * Intializes environment specific api end points and other configurable items.
+         * \@example
+         * 1. DealModule.configEnv('DEV')
+         * 2. DealModule.configEnv('DEV', {COMMON_API: 'https://someurl.com'})
+         * @param {?} envCode Typically DEV, PROD etc. Refer environment.ts of Deal library project.
+         * @param {?=} defaults Optional object to be passed to merge in the env config.
          * @return {?}
          */
             function (envCode, defaults) {
-                Object.assign(APP_CONFIG, environment[envCode]);
-                return {
-                    ngModule: DealModule
-                };
+                /** @type {?} */
+                var validEnvCodes = Object.keys(environments);
+                if (!validEnvCodes.includes(envCode)) {
+                    throw "Error initializing deal library. " + envCode + " is not a valid environment code. Accepted values are " + validEnvCodes + ".\nRefer environment.ts file of library.";
+                }
+                Object.assign(environment, environments[envCode], defaults);
             };
         DealModule.decorators = [
             { type: i0.NgModule, args: [{
                         declarations: components$1,
                         imports: [
-                            animations.BrowserAnimationsModule,
                             MyMaterialModule
                         ],
                         exports: components$1

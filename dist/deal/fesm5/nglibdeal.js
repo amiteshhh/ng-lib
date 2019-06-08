@@ -1,4 +1,3 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -28,10 +27,10 @@ var DealService = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var APP_CONFIG = {};
-//will be updated to environment val from below  
+var environment = {};
+//will be updated to environment val from below 
 /** @type {?} */
-var environment = {
+var environments = {
     DEV: {
         envCode: 'DEV',
         BASE_URL: 'http://deal.dev.com'
@@ -47,13 +46,11 @@ var environment = {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var DealComponent = /** @class */ (function () {
+    // envCode = environment.envCode;
+    // BASE_URL = environment.BASE_URL;
     function DealComponent(_snackBar) {
         this._snackBar = _snackBar;
-        //direct assignment APP_CONFIG=APP_CONFIG throws error 'cannot be named'
-        this.envCode = APP_CONFIG.envCode; //create a copy just for illustration
-        //create a copy just for illustration
-        this.BASE_URL = APP_CONFIG.BASE_URL; //create a copy just for illustration
-        console.log('APP_CONFIG', APP_CONFIG);
+        this.environment = environment;
     }
     /**
      * @return {?}
@@ -75,7 +72,7 @@ var DealComponent = /** @class */ (function () {
     DealComponent.decorators = [
         { type: Component, args: [{
                     selector: 'dl-deal',
-                    template: "\n    <h2>I am dl-deal component </h2>\n    <div>Environment: {{envCode}}</div>\n    <button mat-button (click)=\"openSnackBar()\">Click me!</button>\n    <div>Base Url: {{BASE_URL}}</div>\n    <p>\n      deal works!\n    </p>\n  ",
+                    template: "\n    <h2>I am dl-deal new component </h2>\n    <div>Environment: {{environment.envCode}}</div>\n    <button mat-button (click)=\"openSnackBar()\">Click me!</button>\n    <div>Base Url: {{environment.BASE_URL}}</div>\n    <p>\n      deal works each time!\n    </p>\n  ",
                     styles: [':host{border: 1px solid gray;display:block}']
                 }] }
     ];
@@ -111,9 +108,9 @@ var MyMaterialModule = /** @class */ (function () {
 var DealDetailsComponent = /** @class */ (function () {
     function DealDetailsComponent() {
         //direct assignment APP_CONFIG=APP_CONFIG throws error 'cannot be named'
-        this.envCode = APP_CONFIG.envCode; //create a copy just for illustration
+        this.envCode = environment.envCode; //create a copy just for illustration
         //create a copy just for illustration
-        this.BASE_URL = APP_CONFIG.BASE_URL; //create a copy just for illustration
+        this.BASE_URL = environment.BASE_URL; //create a copy just for illustration
     }
     /**
      * @return {?}
@@ -144,27 +141,43 @@ var components$1 = [DealComponent, DealDetailsComponent];
 var DealModule = /** @class */ (function () {
     function DealModule() {
     }
+    /**Intializes environment specific api end points and other configurable items.
+     * @param envCode Typically DEV, PROD etc. Refer environment.ts of Deal library project.
+     * @param defaults Optional object to be passed to merge in the env config.
+     * @example
+     * 1. DealModule.configEnv('DEV')
+     * 2. DealModule.configEnv('DEV', {COMMON_API: 'https://someurl.com'})
+     */
     /**
-     * @param {?} envCode
-     * @param {?=} defaults
+     * Intializes environment specific api end points and other configurable items.
+     * \@example
+     * 1. DealModule.configEnv('DEV')
+     * 2. DealModule.configEnv('DEV', {COMMON_API: 'https://someurl.com'})
+     * @param {?} envCode Typically DEV, PROD etc. Refer environment.ts of Deal library project.
+     * @param {?=} defaults Optional object to be passed to merge in the env config.
      * @return {?}
      */
-    DealModule.forRoot = /**
-     * @param {?} envCode
-     * @param {?=} defaults
+    DealModule.configEnv = /**
+     * Intializes environment specific api end points and other configurable items.
+     * \@example
+     * 1. DealModule.configEnv('DEV')
+     * 2. DealModule.configEnv('DEV', {COMMON_API: 'https://someurl.com'})
+     * @param {?} envCode Typically DEV, PROD etc. Refer environment.ts of Deal library project.
+     * @param {?=} defaults Optional object to be passed to merge in the env config.
      * @return {?}
      */
     function (envCode, defaults) {
-        Object.assign(APP_CONFIG, environment[envCode]);
-        return {
-            ngModule: DealModule
-        };
+        /** @type {?} */
+        var validEnvCodes = Object.keys(environments);
+        if (!validEnvCodes.includes(envCode)) {
+            throw "Error initializing deal library. " + envCode + " is not a valid environment code. Accepted values are " + validEnvCodes + ".\nRefer environment.ts file of library.";
+        }
+        Object.assign(environment, environments[envCode], defaults);
     };
     DealModule.decorators = [
         { type: NgModule, args: [{
                     declarations: components$1,
                     imports: [
-                        BrowserAnimationsModule,
                         MyMaterialModule
                     ],
                     exports: components$1

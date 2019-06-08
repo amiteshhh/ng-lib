@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { APP_CONFIG } from '../../environment'
+import { environment } from '../../environment'
 
 @Component({
   selector: 'dl-deal-details',
@@ -8,8 +8,8 @@ import { APP_CONFIG } from '../../environment'
 })
 export class DealDetailsComponent implements OnInit {
   //direct assignment APP_CONFIG=APP_CONFIG throws error 'cannot be named'
-  envCode = APP_CONFIG.envCode;//create a copy just for illustration
-  BASE_URL = APP_CONFIG.BASE_URL;//create a copy just for illustration
+  envCode = environment.envCode;//create a copy just for illustration
+  BASE_URL = environment.BASE_URL;//create a copy just for illustration
   constructor() { }
 
   ngOnInit() {

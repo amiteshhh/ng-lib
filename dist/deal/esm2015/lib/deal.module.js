@@ -3,34 +3,38 @@
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyMaterialModule } from './my-material.module';
 import { DealComponent } from './deal.component';
-import { APP_CONFIG, environment } from '../environment';
 import { DealDetailsComponent } from './deal-details/deal-details.component';
+import { environment, environments } from '../environment';
 /** @type {?} */
 var components = [DealComponent, DealDetailsComponent];
 export class DealModule {
     /**
-     * @param {?} envCode
-     * @param {?=} defaults
+     * Intializes environment specific api end points and other configurable items.
+     * \@example
+     * 1. DealModule.configEnv('DEV')
+     * 2. DealModule.configEnv('DEV', {COMMON_API: 'https://someurl.com'})
+     * @param {?} envCode Typically DEV, PROD etc. Refer environment.ts of Deal library project.
+     * @param {?=} defaults Optional object to be passed to merge in the env config.
      * @return {?}
      */
-    static forRoot(envCode, defaults) {
-        Object.assign(APP_CONFIG, environment[envCode]);
-        return {
-            ngModule: DealModule
-        };
+    static configEnv(envCode, defaults) {
+        /** @type {?} */
+        var validEnvCodes = Object.keys(environments);
+        if (!validEnvCodes.includes(envCode)) {
+            throw `Error initializing deal library. ${envCode} is not a valid environment code. Accepted values are ${validEnvCodes}.\nRefer environment.ts file of library.`;
+        }
+        Object.assign(environment, environments[envCode], defaults);
     }
 }
 DealModule.decorators = [
     { type: NgModule, args: [{
                 declarations: components,
                 imports: [
-                    BrowserAnimationsModule,
                     MyMaterialModule
                 ],
                 exports: components
             },] }
 ];
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGVhbC5tb2R1bGUuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZ2xpYmRlYWwvIiwic291cmNlcyI6WyJsaWIvZGVhbC5tb2R1bGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLE9BQU8sRUFBRSxRQUFRLEVBQXVCLE1BQU0sZUFBZSxDQUFDO0FBQzlELE9BQU8sRUFBQyx1QkFBdUIsRUFBQyxNQUFNLHNDQUFzQyxDQUFDO0FBRTdFLE9BQU8sRUFBQyxnQkFBZ0IsRUFBQyxNQUFNLHNCQUFzQixDQUFDO0FBRXRELE9BQU8sRUFBRSxhQUFhLEVBQUUsTUFBTSxrQkFBa0IsQ0FBQztBQUNqRCxPQUFPLEVBQUUsVUFBVSxFQUFFLFdBQVcsRUFBRSxNQUFNLGdCQUFnQixDQUFDO0FBQ3pELE9BQU8sRUFBRSxvQkFBb0IsRUFBRSxNQUFNLHVDQUF1QyxDQUFDOztJQUV6RSxVQUFVLEdBQUcsQ0FBQyxhQUFhLEVBQUUsb0JBQW9CLENBQUM7QUFTdEQsTUFBTSxPQUFPLFVBQVU7Ozs7OztJQUNkLE1BQU0sQ0FBQyxPQUFPLENBQUMsT0FBWSxFQUFFLFFBQWM7UUFDaEQsTUFBTSxDQUFDLE1BQU0sQ0FBQyxVQUFVLEVBQUUsV0FBVyxDQUFDLE9BQU8sQ0FBQyxDQUFDLENBQUE7UUFDL0MsT0FBTztZQUNMLFFBQVEsRUFBRSxVQUFVO1NBQ3JCLENBQUM7SUFDSixDQUFDOzs7WUFkRixRQUFRLFNBQUM7Z0JBQ1IsWUFBWSxFQUFFLFVBQVU7Z0JBQ3hCLE9BQU8sRUFBRTtvQkFDUCx1QkFBdUI7b0JBQ3ZCLGdCQUFnQjtpQkFDakI7Z0JBQ0QsT0FBTyxFQUFFLFVBQVU7YUFDcEIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBOZ01vZHVsZSwgTW9kdWxlV2l0aFByb3ZpZGVycyB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHtCcm93c2VyQW5pbWF0aW9uc01vZHVsZX0gZnJvbSAnQGFuZ3VsYXIvcGxhdGZvcm0tYnJvd3Nlci9hbmltYXRpb25zJztcblxuaW1wb3J0IHtNeU1hdGVyaWFsTW9kdWxlfSBmcm9tICcuL215LW1hdGVyaWFsLm1vZHVsZSc7XG5cbmltcG9ydCB7IERlYWxDb21wb25lbnQgfSBmcm9tICcuL2RlYWwuY29tcG9uZW50JztcbmltcG9ydCB7IEFQUF9DT05GSUcsIGVudmlyb25tZW50IH0gZnJvbSAnLi4vZW52aXJvbm1lbnQnO1xuaW1wb3J0IHsgRGVhbERldGFpbHNDb21wb25lbnQgfSBmcm9tICcuL2RlYWwtZGV0YWlscy9kZWFsLWRldGFpbHMuY29tcG9uZW50JztcblxudmFyIGNvbXBvbmVudHMgPSBbRGVhbENvbXBvbmVudCwgRGVhbERldGFpbHNDb21wb25lbnRdXG5ATmdNb2R1bGUoe1xuICBkZWNsYXJhdGlvbnM6IGNvbXBvbmVudHMsXG4gIGltcG9ydHM6IFtcbiAgICBCcm93c2VyQW5pbWF0aW9uc01vZHVsZSxcbiAgICBNeU1hdGVyaWFsTW9kdWxlXG4gIF0sXG4gIGV4cG9ydHM6IGNvbXBvbmVudHNcbn0pXG5leHBvcnQgY2xhc3MgRGVhbE1vZHVsZSB7XG4gIHB1YmxpYyBzdGF0aWMgZm9yUm9vdChlbnZDb2RlOiBhbnksIGRlZmF1bHRzPzogYW55KTogTW9kdWxlV2l0aFByb3ZpZGVycyB7XG4gICAgT2JqZWN0LmFzc2lnbihBUFBfQ09ORklHLCBlbnZpcm9ubWVudFtlbnZDb2RlXSlcbiAgICByZXR1cm4ge1xuICAgICAgbmdNb2R1bGU6IERlYWxNb2R1bGVcbiAgICB9O1xuICB9XG59XG4iXX0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGVhbC5tb2R1bGUuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZ2xpYmRlYWwvIiwic291cmNlcyI6WyJsaWIvZGVhbC5tb2R1bGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLE9BQU8sRUFBRSxRQUFRLEVBQUUsTUFBTSxlQUFlLENBQUM7QUFFekMsT0FBTyxFQUFFLGdCQUFnQixFQUFFLE1BQU0sc0JBQXNCLENBQUM7QUFFeEQsT0FBTyxFQUFFLGFBQWEsRUFBRSxNQUFNLGtCQUFrQixDQUFDO0FBQ2pELE9BQU8sRUFBRSxvQkFBb0IsRUFBRSxNQUFNLHVDQUF1QyxDQUFDO0FBQzdFLE9BQU8sRUFBRSxXQUFXLEVBQUUsWUFBWSxFQUFFLE1BQU0sZ0JBQWdCLENBQUM7O0lBRXZELFVBQVUsR0FBRyxDQUFDLGFBQWEsRUFBRSxvQkFBb0IsQ0FBQztBQVF0RCxNQUFNLE9BQU8sVUFBVTs7Ozs7Ozs7OztJQVFkLE1BQU0sQ0FBQyxTQUFTLENBQUMsT0FBYyxFQUFFLFFBQWlCOztZQUNuRCxhQUFhLEdBQUcsTUFBTSxDQUFDLElBQUksQ0FBQyxZQUFZLENBQUM7UUFDN0MsSUFBSSxDQUFDLGFBQWEsQ0FBQyxRQUFRLENBQUMsT0FBTyxDQUFDLEVBQUU7WUFDcEMsTUFBTSxvQ0FBb0MsT0FBTyx5REFBeUQsYUFBYSwwQ0FBMEMsQ0FBQTtTQUNsSztRQUNELE1BQU0sQ0FBQyxNQUFNLENBQUMsV0FBVyxFQUFFLFlBQVksQ0FBQyxPQUFPLENBQUMsRUFBRSxRQUFRLENBQUMsQ0FBQztJQUM5RCxDQUFDOzs7WUFyQkYsUUFBUSxTQUFDO2dCQUNSLFlBQVksRUFBRSxVQUFVO2dCQUN4QixPQUFPLEVBQUU7b0JBQ1AsZ0JBQWdCO2lCQUNqQjtnQkFDRCxPQUFPLEVBQUUsVUFBVTthQUNwQiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IE5nTW9kdWxlIH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XG5cbmltcG9ydCB7IE15TWF0ZXJpYWxNb2R1bGUgfSBmcm9tICcuL215LW1hdGVyaWFsLm1vZHVsZSc7XG5cbmltcG9ydCB7IERlYWxDb21wb25lbnQgfSBmcm9tICcuL2RlYWwuY29tcG9uZW50JztcbmltcG9ydCB7IERlYWxEZXRhaWxzQ29tcG9uZW50IH0gZnJvbSAnLi9kZWFsLWRldGFpbHMvZGVhbC1kZXRhaWxzLmNvbXBvbmVudCc7XG5pbXBvcnQgeyBlbnZpcm9ubWVudCwgZW52aXJvbm1lbnRzIH0gZnJvbSAnLi4vZW52aXJvbm1lbnQnO1xuXG52YXIgY29tcG9uZW50cyA9IFtEZWFsQ29tcG9uZW50LCBEZWFsRGV0YWlsc0NvbXBvbmVudF1cbkBOZ01vZHVsZSh7XG4gIGRlY2xhcmF0aW9uczogY29tcG9uZW50cyxcbiAgaW1wb3J0czogW1xuICAgIE15TWF0ZXJpYWxNb2R1bGVcbiAgXSxcbiAgZXhwb3J0czogY29tcG9uZW50c1xufSlcbmV4cG9ydCBjbGFzcyBEZWFsTW9kdWxlIHtcbiAgLyoqSW50aWFsaXplcyBlbnZpcm9ubWVudCBzcGVjaWZpYyBhcGkgZW5kIHBvaW50cyBhbmQgb3RoZXIgY29uZmlndXJhYmxlIGl0ZW1zLlxuICAgKiBAcGFyYW0gZW52Q29kZSBUeXBpY2FsbHkgREVWLCBQUk9EIGV0Yy4gUmVmZXIgZW52aXJvbm1lbnQudHMgb2YgRGVhbCBsaWJyYXJ5IHByb2plY3QuXG4gICAqIEBwYXJhbSBkZWZhdWx0cyBPcHRpb25hbCBvYmplY3QgdG8gYmUgcGFzc2VkIHRvIG1lcmdlIGluIHRoZSBlbnYgY29uZmlnLlxuICAgKiBAZXhhbXBsZSBcbiAgICogMS4gRGVhbE1vZHVsZS5jb25maWdFbnYoJ0RFVicpXG4gICAqIDIuIERlYWxNb2R1bGUuY29uZmlnRW52KCdERVYnLCB7Q09NTU9OX0FQSTogJ2h0dHBzOi8vc29tZXVybC5jb20nfSlcbiAgICovXG4gIHB1YmxpYyBzdGF0aWMgY29uZmlnRW52KGVudkNvZGU6c3RyaW5nLCBkZWZhdWx0cz86IE9iamVjdCkge1xuICAgIHZhciB2YWxpZEVudkNvZGVzID0gT2JqZWN0LmtleXMoZW52aXJvbm1lbnRzKTtcbiAgICBpZiAoIXZhbGlkRW52Q29kZXMuaW5jbHVkZXMoZW52Q29kZSkpIHtcbiAgICAgIHRocm93IGBFcnJvciBpbml0aWFsaXppbmcgZGVhbCBsaWJyYXJ5LiAke2VudkNvZGV9IGlzIG5vdCBhIHZhbGlkIGVudmlyb25tZW50IGNvZGUuIEFjY2VwdGVkIHZhbHVlcyBhcmUgJHt2YWxpZEVudkNvZGVzfS5cXG5SZWZlciBlbnZpcm9ubWVudC50cyBmaWxlIG9mIGxpYnJhcnkuYFxuICAgIH1cbiAgICBPYmplY3QuYXNzaWduKGVudmlyb25tZW50LCBlbnZpcm9ubWVudHNbZW52Q29kZV0sIGRlZmF1bHRzKTtcbiAgfVxufVxuIl19

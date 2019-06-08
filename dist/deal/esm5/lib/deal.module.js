@@ -3,37 +3,52 @@
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyMaterialModule } from './my-material.module';
 import { DealComponent } from './deal.component';
-import { APP_CONFIG, environment } from '../environment';
 import { DealDetailsComponent } from './deal-details/deal-details.component';
+import { environment, environments } from '../environment';
 /** @type {?} */
 var components = [DealComponent, DealDetailsComponent];
 var DealModule = /** @class */ (function () {
     function DealModule() {
     }
+    /**Intializes environment specific api end points and other configurable items.
+     * @param envCode Typically DEV, PROD etc. Refer environment.ts of Deal library project.
+     * @param defaults Optional object to be passed to merge in the env config.
+     * @example
+     * 1. DealModule.configEnv('DEV')
+     * 2. DealModule.configEnv('DEV', {COMMON_API: 'https://someurl.com'})
+     */
     /**
-     * @param {?} envCode
-     * @param {?=} defaults
+     * Intializes environment specific api end points and other configurable items.
+     * \@example
+     * 1. DealModule.configEnv('DEV')
+     * 2. DealModule.configEnv('DEV', {COMMON_API: 'https://someurl.com'})
+     * @param {?} envCode Typically DEV, PROD etc. Refer environment.ts of Deal library project.
+     * @param {?=} defaults Optional object to be passed to merge in the env config.
      * @return {?}
      */
-    DealModule.forRoot = /**
-     * @param {?} envCode
-     * @param {?=} defaults
+    DealModule.configEnv = /**
+     * Intializes environment specific api end points and other configurable items.
+     * \@example
+     * 1. DealModule.configEnv('DEV')
+     * 2. DealModule.configEnv('DEV', {COMMON_API: 'https://someurl.com'})
+     * @param {?} envCode Typically DEV, PROD etc. Refer environment.ts of Deal library project.
+     * @param {?=} defaults Optional object to be passed to merge in the env config.
      * @return {?}
      */
     function (envCode, defaults) {
-        Object.assign(APP_CONFIG, environment[envCode]);
-        return {
-            ngModule: DealModule
-        };
+        /** @type {?} */
+        var validEnvCodes = Object.keys(environments);
+        if (!validEnvCodes.includes(envCode)) {
+            throw "Error initializing deal library. " + envCode + " is not a valid environment code. Accepted values are " + validEnvCodes + ".\nRefer environment.ts file of library.";
+        }
+        Object.assign(environment, environments[envCode], defaults);
     };
     DealModule.decorators = [
         { type: NgModule, args: [{
                     declarations: components,
                     imports: [
-                        BrowserAnimationsModule,
                         MyMaterialModule
                     ],
                     exports: components
@@ -42,4 +57,4 @@ var DealModule = /** @class */ (function () {
     return DealModule;
 }());
 export { DealModule };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGVhbC5tb2R1bGUuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZ2xpYmRlYWwvIiwic291cmNlcyI6WyJsaWIvZGVhbC5tb2R1bGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLE9BQU8sRUFBRSxRQUFRLEVBQXVCLE1BQU0sZUFBZSxDQUFDO0FBQzlELE9BQU8sRUFBQyx1QkFBdUIsRUFBQyxNQUFNLHNDQUFzQyxDQUFDO0FBRTdFLE9BQU8sRUFBQyxnQkFBZ0IsRUFBQyxNQUFNLHNCQUFzQixDQUFDO0FBRXRELE9BQU8sRUFBRSxhQUFhLEVBQUUsTUFBTSxrQkFBa0IsQ0FBQztBQUNqRCxPQUFPLEVBQUUsVUFBVSxFQUFFLFdBQVcsRUFBRSxNQUFNLGdCQUFnQixDQUFDO0FBQ3pELE9BQU8sRUFBRSxvQkFBb0IsRUFBRSxNQUFNLHVDQUF1QyxDQUFDOztJQUV6RSxVQUFVLEdBQUcsQ0FBQyxhQUFhLEVBQUUsb0JBQW9CLENBQUM7QUFDdEQ7SUFBQTtJQWVBLENBQUM7Ozs7OztJQU5lLGtCQUFPOzs7OztJQUFyQixVQUFzQixPQUFZLEVBQUUsUUFBYztRQUNoRCxNQUFNLENBQUMsTUFBTSxDQUFDLFVBQVUsRUFBRSxXQUFXLENBQUMsT0FBTyxDQUFDLENBQUMsQ0FBQTtRQUMvQyxPQUFPO1lBQ0wsUUFBUSxFQUFFLFVBQVU7U0FDckIsQ0FBQztJQUNKLENBQUM7O2dCQWRGLFFBQVEsU0FBQztvQkFDUixZQUFZLEVBQUUsVUFBVTtvQkFDeEIsT0FBTyxFQUFFO3dCQUNQLHVCQUF1Qjt3QkFDdkIsZ0JBQWdCO3FCQUNqQjtvQkFDRCxPQUFPLEVBQUUsVUFBVTtpQkFDcEI7O0lBUUQsaUJBQUM7Q0FBQSxBQWZELElBZUM7U0FQWSxVQUFVIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgTmdNb2R1bGUsIE1vZHVsZVdpdGhQcm92aWRlcnMgfSBmcm9tICdAYW5ndWxhci9jb3JlJztcbmltcG9ydCB7QnJvd3NlckFuaW1hdGlvbnNNb2R1bGV9IGZyb20gJ0Bhbmd1bGFyL3BsYXRmb3JtLWJyb3dzZXIvYW5pbWF0aW9ucyc7XG5cbmltcG9ydCB7TXlNYXRlcmlhbE1vZHVsZX0gZnJvbSAnLi9teS1tYXRlcmlhbC5tb2R1bGUnO1xuXG5pbXBvcnQgeyBEZWFsQ29tcG9uZW50IH0gZnJvbSAnLi9kZWFsLmNvbXBvbmVudCc7XG5pbXBvcnQgeyBBUFBfQ09ORklHLCBlbnZpcm9ubWVudCB9IGZyb20gJy4uL2Vudmlyb25tZW50JztcbmltcG9ydCB7IERlYWxEZXRhaWxzQ29tcG9uZW50IH0gZnJvbSAnLi9kZWFsLWRldGFpbHMvZGVhbC1kZXRhaWxzLmNvbXBvbmVudCc7XG5cbnZhciBjb21wb25lbnRzID0gW0RlYWxDb21wb25lbnQsIERlYWxEZXRhaWxzQ29tcG9uZW50XVxuQE5nTW9kdWxlKHtcbiAgZGVjbGFyYXRpb25zOiBjb21wb25lbnRzLFxuICBpbXBvcnRzOiBbXG4gICAgQnJvd3NlckFuaW1hdGlvbnNNb2R1bGUsXG4gICAgTXlNYXRlcmlhbE1vZHVsZVxuICBdLFxuICBleHBvcnRzOiBjb21wb25lbnRzXG59KVxuZXhwb3J0IGNsYXNzIERlYWxNb2R1bGUge1xuICBwdWJsaWMgc3RhdGljIGZvclJvb3QoZW52Q29kZTogYW55LCBkZWZhdWx0cz86IGFueSk6IE1vZHVsZVdpdGhQcm92aWRlcnMge1xuICAgIE9iamVjdC5hc3NpZ24oQVBQX0NPTkZJRywgZW52aXJvbm1lbnRbZW52Q29kZV0pXG4gICAgcmV0dXJuIHtcbiAgICAgIG5nTW9kdWxlOiBEZWFsTW9kdWxlXG4gICAgfTtcbiAgfVxufVxuIl19
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGVhbC5tb2R1bGUuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZ2xpYmRlYWwvIiwic291cmNlcyI6WyJsaWIvZGVhbC5tb2R1bGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLE9BQU8sRUFBRSxRQUFRLEVBQUUsTUFBTSxlQUFlLENBQUM7QUFFekMsT0FBTyxFQUFFLGdCQUFnQixFQUFFLE1BQU0sc0JBQXNCLENBQUM7QUFFeEQsT0FBTyxFQUFFLGFBQWEsRUFBRSxNQUFNLGtCQUFrQixDQUFDO0FBQ2pELE9BQU8sRUFBRSxvQkFBb0IsRUFBRSxNQUFNLHVDQUF1QyxDQUFDO0FBQzdFLE9BQU8sRUFBRSxXQUFXLEVBQUUsWUFBWSxFQUFFLE1BQU0sZ0JBQWdCLENBQUM7O0lBRXZELFVBQVUsR0FBRyxDQUFDLGFBQWEsRUFBRSxvQkFBb0IsQ0FBQztBQUN0RDtJQUFBO0lBc0JBLENBQUM7SUFkQzs7Ozs7O09BTUc7Ozs7Ozs7Ozs7SUFDVyxvQkFBUzs7Ozs7Ozs7O0lBQXZCLFVBQXdCLE9BQWMsRUFBRSxRQUFpQjs7WUFDbkQsYUFBYSxHQUFHLE1BQU0sQ0FBQyxJQUFJLENBQUMsWUFBWSxDQUFDO1FBQzdDLElBQUksQ0FBQyxhQUFhLENBQUMsUUFBUSxDQUFDLE9BQU8sQ0FBQyxFQUFFO1lBQ3BDLE1BQU0sc0NBQW9DLE9BQU8sOERBQXlELGFBQWEsNkNBQTBDLENBQUE7U0FDbEs7UUFDRCxNQUFNLENBQUMsTUFBTSxDQUFDLFdBQVcsRUFBRSxZQUFZLENBQUMsT0FBTyxDQUFDLEVBQUUsUUFBUSxDQUFDLENBQUM7SUFDOUQsQ0FBQzs7Z0JBckJGLFFBQVEsU0FBQztvQkFDUixZQUFZLEVBQUUsVUFBVTtvQkFDeEIsT0FBTyxFQUFFO3dCQUNQLGdCQUFnQjtxQkFDakI7b0JBQ0QsT0FBTyxFQUFFLFVBQVU7aUJBQ3BCOztJQWdCRCxpQkFBQztDQUFBLEFBdEJELElBc0JDO1NBZlksVUFBVSIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IE5nTW9kdWxlIH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XG5cbmltcG9ydCB7IE15TWF0ZXJpYWxNb2R1bGUgfSBmcm9tICcuL215LW1hdGVyaWFsLm1vZHVsZSc7XG5cbmltcG9ydCB7IERlYWxDb21wb25lbnQgfSBmcm9tICcuL2RlYWwuY29tcG9uZW50JztcbmltcG9ydCB7IERlYWxEZXRhaWxzQ29tcG9uZW50IH0gZnJvbSAnLi9kZWFsLWRldGFpbHMvZGVhbC1kZXRhaWxzLmNvbXBvbmVudCc7XG5pbXBvcnQgeyBlbnZpcm9ubWVudCwgZW52aXJvbm1lbnRzIH0gZnJvbSAnLi4vZW52aXJvbm1lbnQnO1xuXG52YXIgY29tcG9uZW50cyA9IFtEZWFsQ29tcG9uZW50LCBEZWFsRGV0YWlsc0NvbXBvbmVudF1cbkBOZ01vZHVsZSh7XG4gIGRlY2xhcmF0aW9uczogY29tcG9uZW50cyxcbiAgaW1wb3J0czogW1xuICAgIE15TWF0ZXJpYWxNb2R1bGVcbiAgXSxcbiAgZXhwb3J0czogY29tcG9uZW50c1xufSlcbmV4cG9ydCBjbGFzcyBEZWFsTW9kdWxlIHtcbiAgLyoqSW50aWFsaXplcyBlbnZpcm9ubWVudCBzcGVjaWZpYyBhcGkgZW5kIHBvaW50cyBhbmQgb3RoZXIgY29uZmlndXJhYmxlIGl0ZW1zLlxuICAgKiBAcGFyYW0gZW52Q29kZSBUeXBpY2FsbHkgREVWLCBQUk9EIGV0Yy4gUmVmZXIgZW52aXJvbm1lbnQudHMgb2YgRGVhbCBsaWJyYXJ5IHByb2plY3QuXG4gICAqIEBwYXJhbSBkZWZhdWx0cyBPcHRpb25hbCBvYmplY3QgdG8gYmUgcGFzc2VkIHRvIG1lcmdlIGluIHRoZSBlbnYgY29uZmlnLlxuICAgKiBAZXhhbXBsZSBcbiAgICogMS4gRGVhbE1vZHVsZS5jb25maWdFbnYoJ0RFVicpXG4gICAqIDIuIERlYWxNb2R1bGUuY29uZmlnRW52KCdERVYnLCB7Q09NTU9OX0FQSTogJ2h0dHBzOi8vc29tZXVybC5jb20nfSlcbiAgICovXG4gIHB1YmxpYyBzdGF0aWMgY29uZmlnRW52KGVudkNvZGU6c3RyaW5nLCBkZWZhdWx0cz86IE9iamVjdCkge1xuICAgIHZhciB2YWxpZEVudkNvZGVzID0gT2JqZWN0LmtleXMoZW52aXJvbm1lbnRzKTtcbiAgICBpZiAoIXZhbGlkRW52Q29kZXMuaW5jbHVkZXMoZW52Q29kZSkpIHtcbiAgICAgIHRocm93IGBFcnJvciBpbml0aWFsaXppbmcgZGVhbCBsaWJyYXJ5LiAke2VudkNvZGV9IGlzIG5vdCBhIHZhbGlkIGVudmlyb25tZW50IGNvZGUuIEFjY2VwdGVkIHZhbHVlcyBhcmUgJHt2YWxpZEVudkNvZGVzfS5cXG5SZWZlciBlbnZpcm9ubWVudC50cyBmaWxlIG9mIGxpYnJhcnkuYFxuICAgIH1cbiAgICBPYmplY3QuYXNzaWduKGVudmlyb25tZW50LCBlbnZpcm9ubWVudHNbZW52Q29kZV0sIGRlZmF1bHRzKTtcbiAgfVxufVxuIl19
